@@ -1,14 +1,27 @@
-CXX = riscv64-unknown-elf-g++
-CXXFLAGS = -O3 -march=rv64g -mabi=lp64
-TARGET = matmul
+# Compiler settings
+CXX = g++
+CXXFLAGS = -O3 -Wall -std=c++17
 
-all: no_vector vector
+# RISC-V specific flags for vector extension
+RISCV_V_FLAGS = -march=rv64gcv -menable-rvv
 
-no_vector:
-	$(CXX) $(CXXFLAGS) matmul.cpp -o $(TARGET)_no_vector
+# Target names
+TARGET_SCALAR = matmul_scalar
+TARGET_VECTOR = matmul_vector
 
-vector:
-	$(CXX) $(CXXFLAGS) -DVECTOR_INSTRUCTIONS matmul.cpp -o $(TARGET)_vector
+# Default target
+all: $(TARGET_SCALAR) $(TARGET_VECTOR)
 
+# Rule to build the scalar (non-vector) version
+$(TARGET_SCALAR): matrix_mul.cpp
+	$(CXX) $(CXXFLAGS) -o $(TARGET_SCALAR) matrix_mul.cpp
+
+# Rule to build the RISC-V vector version
+$(TARGET_VECTOR): matrix_mul.cpp
+	$(CXX) $(CXXFLAGS) $(RISCV_V_FLAGS) -o $(TARGET_VECTOR) matrix_mul.cpp
+
+# Clean up generated files
 clean:
-	rm -f matmul_* benchmark_results.txt
+	rm -f $(TARGET_SCALAR) $(TARGET_VECTOR)
+
+.PHONY: all clean
