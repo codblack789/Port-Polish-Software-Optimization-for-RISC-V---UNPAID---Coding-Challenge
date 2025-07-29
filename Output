@@ -1,0 +1,16 @@
+Matrix Multiplication for N = 512, BLOCK_SIZE = 32
+1. Naive time:          4.85123 seconds
+2. Blocked time:        1.21567 seconds
+Verification PASSED.
+
+Compiled without RISC-V Vector Instructions.
+
+
+Matrix Multiplication for N = 512, BLOCK_SIZE = 32
+1. Naive time:          4.84991 seconds
+2. Blocked time:        1.21458 seconds
+Verification PASSED.
+3. Vectorized time:     0.15834 seconds
+Verification PASSED.
+
+Compiled with RISC-V Vector Instructions.
