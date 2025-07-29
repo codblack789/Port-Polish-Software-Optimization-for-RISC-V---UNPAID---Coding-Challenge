@@ -54,3 +54,7 @@ A Makefile is included to simplify the compilation process.
 
     4. To clean up generated files
     ```make clean```
+How to Run
+
+Run the executables from your terminal, providing the square matrix size as a command-line argument
+```./<executable_name> <matrix_size>```
